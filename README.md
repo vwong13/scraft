@@ -1,10 +1,6 @@
-# Smart App
+# Scraft
 
-Smart app is a library which generates an entire application from a simple configuration JSON. The benefits of this include, but are not limited to, the following:
-- Allows developers to focus on containers & widgets.
-- Changes to the JSON config are reflected instantly in the app.
-- Skip boilerplate code related to routing and state management.
-- App can easily be shared via a JSON file.
+Scraft is a React component library which transforms a configuration JSON into a web application.
 
 ### Example JSON
 ```

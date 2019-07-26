@@ -1,45 +1,7 @@
-import React from 'react';
-import ComponentBuilder from '../components/ComponentBuilder';
+import React, { memo } from 'react';
 import { recompose } from './recompose';
 import { interpolate } from './interpolate';
-
-export const recursiveRender = (components, props = {}, index = 0) => {
-    if (Array.isArray(components) && components[index]) {
-        const Component = components[index];
-        return (
-            <Component {...props}>
-                {recursiveRender(components, props, index + 1)}
-            </Component>
-        );
-    } else {
-        return props.children;
-    }
-};
-
-export const composeContainers = (
-    containerMap,
-    containerIds,
-    components
-) => () => {
-    let CompositeContainer = ({ children }) => children;
-    if (Array.isArray(containerIds) && containerIds.length > 0) {
-        const containerComponents = containerIds.map(containerId => {
-            return ({ children, ...data }) => (
-                <ComponentBuilder
-                    {...data}
-                    components={components}
-                    metadata={containerMap.get(containerId)}
-                >
-                    {children}
-                </ComponentBuilder>
-            );
-        });
-        CompositeContainer = props => {
-            return recursiveRender(containerComponents, props);
-        };
-    }
-    return CompositeContainer;
-};
+import ComponentWrapper from '../components/ComponentWrapper';
 
 export const reinterpolate = (target, data, deps = new Map()) => {
     if (typeof data === 'object') {
@@ -91,4 +53,38 @@ export const objArrayToMap = (objArray, primaryKey = 'id') => {
         });
     }
     return objMap;
+};
+
+export const recursiveRender = (containers = [], props = {}, index = 0) => {
+    if (Array.isArray(containers) && index < containers.length) {
+        const Component = containers[index];
+        if (Component) {
+            return (
+                <Component {...props}>
+                    {recursiveRender(containers, props, index + 1)}
+                </Component>
+            );
+        }
+    } else {
+        return props.children;
+    }
+};
+
+export const composeContainers = (containerMap, containerIds, components) => {
+    let CompositeContainer = ({ children }) => children;
+    if (Array.isArray(containerIds)) {
+        const containers = containerIds.map(id => {
+            return ({ children, ...props }) => (
+                <ComponentWrapper
+                    {...props}
+                    config={containerMap.get(id)}
+                    components={components}
+                >
+                    {children}
+                </ComponentWrapper>
+            );
+        });
+        CompositeContainer = props => recursiveRender(containers, props);
+    }
+    return memo(CompositeContainer);
 };

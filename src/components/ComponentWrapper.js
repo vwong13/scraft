@@ -1,12 +1,13 @@
 import React, { memo, useEffect } from 'react';
-import { useLegacyState, useInterpolation } from '../hooks';
+import { useLegacyState } from '../hooks/useLegacyState';
+import { useInterpolater } from '../hooks/useInterpolater';
 
-const ComponentBuilder = ({ components, metadata, children, ...props }) => {
-    const { initState = {} } = metadata;
+const ComponentWrapper = ({ config, components, children, ...props }) => {
+    const { initState = {} } = config;
     const [state, setState] = useLegacyState(initState);
     const data = { ...props, state, setState };
-    const { id, onMount, onUnmount, component = {} } = useInterpolation(
-        metadata,
+    const { id, onMount, onUnmount, component = {} } = useInterpolater(
+        config,
         data
     );
 
@@ -36,8 +37,9 @@ const ComponentBuilder = ({ components, metadata, children, ...props }) => {
     }
 };
 
-ComponentBuilder.defaultProps = {
-    metadata: {}
+ComponentWrapper.defaultProps = {
+    config: {},
+    components: {}
 };
 
-export default memo(ComponentBuilder);
+export default memo(ComponentWrapper);

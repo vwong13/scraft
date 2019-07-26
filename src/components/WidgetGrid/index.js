@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { Responsive as ResponsiveGrid } from 'react-grid-layout';
 import { Helmet } from 'react-helmet';
@@ -56,4 +56,4 @@ SmartGrid.defaultProps = {
     layoutMode: false
 };
 
-export default SmartGrid;
+export default memo(SmartGrid);

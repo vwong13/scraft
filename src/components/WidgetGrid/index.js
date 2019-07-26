@@ -1,26 +1,44 @@
-import React, { memo } from 'react';
+import React, { useMemo } from 'react';
 import ReactResizeDetector from 'react-resize-detector';
 import { Responsive as ResponsiveGrid } from 'react-grid-layout';
-import './css/styles.css';
+import { Helmet } from 'react-helmet';
+import { getStyles } from './styles';
 
-const WidgetGrid = ({ children, layoutMode, ...others }) => (
-    <ReactResizeDetector handleWidth>
-        {({ width = 0 }) => (
-            <ResponsiveGrid
-                {...others}
-                className='layout'
-                width={width}
-                isDraggable={layoutMode}
-                isResizable={layoutMode}
-                isRearrangeable={layoutMode}
-            >
-                {children}
-            </ResponsiveGrid>
-        )}
-    </ReactResizeDetector>
-);
+const SmartGrid = ({
+    children,
+    layoutMode,
+    widgetPlaceholderColor,
+    ...others
+}) => {
+    const styles = useMemo(() => {
+        return getStyles(widgetPlaceholderColor);
+    }, [widgetPlaceholderColor]);
 
-WidgetGrid.defaultProps = {
+    return (
+        <React.Fragment>
+            <Helmet>
+                <style type='text/css'>{styles}</style>
+            </Helmet>
+            <ReactResizeDetector handleWidth>
+                {({ width = 0 }) => (
+                    <ResponsiveGrid
+                        {...others}
+                        className='layout'
+                        width={width}
+                        isDraggable={layoutMode}
+                        isResizable={layoutMode}
+                        isRearrangeable={layoutMode}
+                    >
+                        {children}
+                    </ResponsiveGrid>
+                )}
+            </ReactResizeDetector>
+        </React.Fragment>
+    );
+};
+
+SmartGrid.defaultProps = {
+    widgetPlaceholderColor: 'rgba(0, 0, 0, 0.15)',
     margin: [16, 16],
     breakpoints: {
         lg: 1200,
@@ -38,4 +56,4 @@ WidgetGrid.defaultProps = {
     layoutMode: false
 };
 
-export default memo(WidgetGrid);
+export default SmartGrid;

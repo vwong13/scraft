@@ -1,13 +1,10 @@
 {
   "name": "scraft",
-  "version": "1.0.3",
+  "version": "1.0.10",
   "description": "React component which builds an entire web application from JSON",
   "main": "lib/index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
-    "build": "npx babel src -d lib",
+    "build": "babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,9 +24,8 @@
   "homepage": "https://github.com/dsankar1/scraft#readme",
   "browserslist": "> 0.25%, not dead",
   "dependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-grid-layout": "0.16.6",
+    "react-helmet": "^5.2.1",
     "react-resize-detector": "^4.2.0",
     "react-router-dom": "^5.0.1"
   },
@@ -39,6 +35,8 @@
     "@babel/preset-react": "^7.0.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

@@ -1,0 +1,39 @@
+{
+  "name": "scraft",
+  "version": "1.0.0",
+  "description": "React component which builds an entire web application from JSON",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsankar1/scraft.git"
+  },
+  "keywords": [
+    "JSON",
+    "React",
+    "Builder"
+  ],
+  "author": "Daryan Sankar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dsankar1/scraft/issues"
+  },
+  "homepage": "https://github.com/dsankar1/scraft#readme",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-grid-layout": "0.16.6",
+    "react-resize-detector": "^4.2.0",
+    "react-router-dom": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "1.18.2"
+  }
+}
